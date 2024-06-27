@@ -1,4 +1,0 @@
-C:/Users/User/Documents/C++/XML_PARSER/build/CMakeFiles/XML_PARSE.dir
-C:/Users/User/Documents/C++/XML_PARSER/build/CMakeFiles/SAMPLE_PARSER.dir
-C:/Users/User/Documents/C++/XML_PARSER/build/CMakeFiles/edit_cache.dir
-C:/Users/User/Documents/C++/XML_PARSER/build/CMakeFiles/rebuild_cache.dir
