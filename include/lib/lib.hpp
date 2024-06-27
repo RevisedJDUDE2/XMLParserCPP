@@ -2,7 +2,7 @@
 #define LIB_HPP
 typedef struct XMLProlog {
     bool found_first_tag;
-
+    char* version;
     bool found_last_tag;
 } XMLProlog_t;
 
@@ -12,6 +12,7 @@ typedef struct XMLProlog {
 #include <cstdio>
 #include <optional>
 #include <fstream>
+#include <regex>
 
 std::optional<XMLProlog_t> xml_init(std::ifstream* data);
 

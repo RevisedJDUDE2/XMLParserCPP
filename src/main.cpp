@@ -8,6 +8,7 @@ int main() {
     std::ifstream file("sample.xml");
     // OLD: XMLProlog_t* sample = xml_init(&file);
     std::optional<XMLProlog_t> sample = xml_init(&file);
+    std::cout << sample->version << std::endl;
     if(sample->found_first_tag) {
         std::cout << "Found <?" << std::endl;
     } else {
