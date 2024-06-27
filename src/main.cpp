@@ -1,16 +1,13 @@
 #include <iostream>
 #include <fstream>
 #include <lib/lib.hpp>
+#include <optional>
 
 int main() {
     std::fprintf(stderr, "Hello World?\n");
     std::ifstream file("sample.xml");
-    XMLProlog_t* sample = xml_init(&file);
-    if(sample != NULL) {
-        std::cout << "is NOT null" << std::endl;
-    } else {
-        std::cout << "is null" << std::endl;
-    }
+    // OLD: XMLProlog_t* sample = xml_init(&file);
+    std::optional<XMLProlog_t> sample = xml_init(&file);
     if(sample->found_first_tag) {
         std::cout << "Found <?" << std::endl;
     } else {
