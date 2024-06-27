@@ -6,6 +6,10 @@ file(GLOB_RECURSE SRC_FILES "src/lib/*.cpp")
 
 add_library(XML_PARSE SHARED ${SRC_FILES})
 
+set_target_properties(XML_PARSE PROPERTIES PREFIX "")
+set_target_properties(XML_PARSE PROPERTIES OUTPUT_NAME "XML_PARSE")
+set_target_properties(XML_PARSE PROPERTIES SUFFIX ".dll")
+
 target_include_directories(XML_PARSE PUBLIC "include/lib")
 
 project(SAMPLE_PARSER VERSION 1.1)
