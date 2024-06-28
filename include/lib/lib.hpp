@@ -13,25 +13,27 @@ class XML_PARSER
 {
 private:
     const char* ALOWED_TOKENS = "<?>=\"\"\'\'/\\";
+    const char* TAG_STRUCT = "<??/>";
     typedef struct LINE_STRUCTURE {
         std::string OpeningTag, Value, ClosingTag;
         std::string Attribute, Element;
 
    } LINE_STRUCT_T;
    std::vector<char> m_Stack_Current_Operator;
+   std::vector<std::string> Element_Names;
    std::vector<std::string> m_Filecontents;
    std::ifstream m_Filehandle;
+   bool m_HasFoundClosingTag(int Linenumber);
 public:
     void OpenFile(const std::string& Filename);
     void ScanTags(int Linenumber);
     inline std::vector<std::string> GetFileContents(void) const noexcept { return this->m_Filecontents; };
     inline std::vector<char> GetStackCurrentOperator(void) const noexcept { return this->m_Stack_Current_Operator; };
+    inline std::vector<std::string> GetElementNames(void) const noexcept { return this->Element_Names; };
 };
 
 #else
 #include <stdio.h>
-XMLProlog_t* xml_init(const char* data);
+// C IMPLEMENTATION SOON
 #endif
-
-//void Out(void) noexcept;
 #endif
