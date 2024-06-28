@@ -1,10 +1,5 @@
 #ifndef LIB_HPP
 #define LIB_HPP
-typedef struct XMLProlog {
-    bool found_first_tag;
-    char* version;
-    bool found_last_tag;
-} XMLProlog_t;
 
 #ifdef __cplusplus
 #include <vector>
@@ -14,7 +9,24 @@ typedef struct XMLProlog {
 #include <fstream>
 #include <regex>
 
-std::optional<XMLProlog_t> xml_init(std::ifstream* data);
+class XML_PARSER
+{
+private:
+    const char* ALOWED_TOKENS = "<?>=\"\"\'\'/\\";
+    typedef struct LINE_STRUCTURE {
+        std::string OpeningTag, Value, ClosingTag;
+        std::string Attribute, Element;
+
+   } LINE_STRUCT_T;
+   std::vector<char> m_Stack_Current_Operator;
+   std::vector<std::string> m_Filecontents;
+   std::ifstream m_Filehandle;
+public:
+    void OpenFile(const std::string& Filename);
+    void ScanTags(int Linenumber);
+    inline std::vector<std::string> GetFileContents(void) const noexcept { return this->m_Filecontents; };
+    inline std::vector<char> GetStackCurrentOperator(void) const noexcept { return this->m_Stack_Current_Operator; };
+};
 
 #else
 #include <stdio.h>
