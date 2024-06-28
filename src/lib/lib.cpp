@@ -34,8 +34,7 @@ void XML_PARSER::ScanTags(int Linenumber)
         }
         if(Token == '<' && isOpened == false)
         {
-            //this->m_Stack_Current_Operator.push_back(Token);
-            ElmntName.push_back(Token);
+            this->m_Stack_Current_Operator.push_back(Token);
             isOpened = true;
         }
         if(Token != ' ' && isOpened)
