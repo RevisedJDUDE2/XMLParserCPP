@@ -13,21 +13,23 @@
 class XML_PARSER
 {
 private:
-    typedef struct LINE_STRUCTURE {
-        std::string OpeningTag, Value, ClosingTag;
-        std::string Attribute, Element;
-
-   } LINE_STRUCT_T;
    std::vector<char> m_Stack_Current_Operator;
    std::vector<std::string> Element_Names;
    std::vector<std::string> m_Filecontents;
    std::ifstream m_Filehandle;
+   int m_Linenumber;
 public:
+    typedef struct LINE_STRUCTURE {
+        std::string OpeningTag, Value, ClosingTag;
+        std::string Attribute, Element;
+    } LINE_STRUCT_T;
     void OpenFile(const std::string& Filename);
     void ScanTags(int Linenumber);
     inline std::vector<std::string> GetFileContents(void) const noexcept { return this->m_Filecontents; };
     inline std::vector<char> GetStackCurrentOperator(void) const noexcept { return this->m_Stack_Current_Operator; };
     inline std::vector<std::string> GetElementNames(void) const noexcept { return this->Element_Names; };
+    void GetElementAtLine(XML_PARSER::LINE_STRUCT_T* table, int pos);
+    void ClearStack(void) noexcept { this->m_Stack_Current_Operator.clear(); };
 };
 
 #else

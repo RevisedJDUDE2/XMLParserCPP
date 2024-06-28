@@ -42,8 +42,13 @@ void XML_PARSER::ScanTags(int Linenumber)
             ElmntName.push_back(Token);
             if(Token == '>') {
                 this->Element_Names.push_back(ElmntName);
+                this->m_Linenumber = Linenumber;
                 break;
             }
         }
     }
+}
+void XML_PARSER::GetElementAtLine(XML_PARSER::LINE_STRUCT_T* table, int pos)
+{
+    table->OpeningTag = this->Element_Names[pos];
 }
