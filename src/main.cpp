@@ -15,7 +15,7 @@ int main()
         parser.OpenFile(filename);
         parser.ScanTags(2);
         std::cout << "Current Operator: " << parser.GetStackCurrentOperator()[0] << std::endl;
-        std::cout << "Element Names Captured: " << parser.GetElementNames()[0] << std::endl;
+        std::cout << "Element Names Captured: " << parser.GetElementNames()[1] << std::endl;
     } catch (const char* errout)
     {
         std::cout << errout << std::endl;

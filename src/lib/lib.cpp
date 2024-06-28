@@ -28,45 +28,23 @@ void XML_PARSER::ScanTags(int Linenumber)
     this->Element_Names.push_back(ElmntName);
     for (char Token : this->m_Filecontents[Linenumber])
     {
-        index += 1;
-        //TODO: fix this:
-        for (int i = 0; i <= sizeof(this->ALOWED_TOKENS); i++)
+        if(Token != ' ')
         {
-            if (Token == this->ALOWED_TOKENS[i])
-            {
-                this->m_Stack_Current_Operator.push_back(Token);
-                isOpened = true;
-            }
+            index += 1;
+        }
+        if(Token == '<' && isOpened == false)
+        {
+            //this->m_Stack_Current_Operator.push_back(Token);
+            ElmntName.push_back(Token);
+            isOpened = true;
         }
         if(Token != ' ' && isOpened)
         {
-            if(this->m_Filecontents[Linenumber][index + 1] != '>')
-            {
-                ElmntName.push_back(Token);
-            }
-            else
-            {
-                throw "Closing tag required: '>';";
+            ElmntName.push_back(Token);
+            if(Token == '>') {
+                this->Element_Names.push_back(ElmntName);
                 break;
             }
         }
-    }
-}
-bool XML_PARSER::m_HasFoundClosingTag(int Linenumber)
-{
-    if (this->m_Stack_Current_Operator[0] == this->TAG_STRUCT[0])
-    {
-        if (this->m_Filecontents[Linenumber][this->m_Filecontents[Linenumber].size() - 1] == this->TAG_STRUCT[5])
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    else
-    {
-        throw "There is no opening tag \"<\"";
     }
 }

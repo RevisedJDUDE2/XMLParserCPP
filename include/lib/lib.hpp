@@ -8,12 +8,11 @@
 #include <optional>
 #include <fstream>
 #include <regex>
+#include <cstring>
 
 class XML_PARSER
 {
 private:
-    const char* ALOWED_TOKENS = "<?>=\"\"\'\'/\\";
-    const char* TAG_STRUCT = "<??/>";
     typedef struct LINE_STRUCTURE {
         std::string OpeningTag, Value, ClosingTag;
         std::string Attribute, Element;
@@ -23,7 +22,6 @@ private:
    std::vector<std::string> Element_Names;
    std::vector<std::string> m_Filecontents;
    std::ifstream m_Filehandle;
-   bool m_HasFoundClosingTag(int Linenumber);
 public:
     void OpenFile(const std::string& Filename);
     void ScanTags(int Linenumber);
