@@ -29,6 +29,7 @@ int main()
         parser.ScanTags(&AgeElement, 3);
         parser.GetElementAtLine(&AgeElement);
         std::cout << AgeElement.OpeningTag << std::endl;
+        std::cout << AgeElement.Value << std::endl;
     } catch (const char* errout)
     {
         std::cout << errout << std::endl;
