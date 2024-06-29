@@ -55,6 +55,10 @@ void XML_PARSER::ScanTags(XML_PARSER::LINE_STRUCT_T* table, int Linenumber)
         }
     }
 }
+void XML_PARSER::GetElementAtLine(XML_PARSER::LINE_STRUCT_T* table)
+{
+    table->OpeningTag = this->Element_Names.back().c_str();
+}
 void XML_PARSER::GetElementAtLine(XML_PARSER::LINE_STRUCT_T* table, int pos)
 {
     table->OpeningTag = this->Element_Names[pos].c_str();

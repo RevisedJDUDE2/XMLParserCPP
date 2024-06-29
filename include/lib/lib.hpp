@@ -30,6 +30,7 @@ public:
     inline std::vector<char> GetStackCurrentOperator(void) const noexcept { return this->m_Stack_Current_Operator; };
     inline std::vector<std::string> GetElementNames(void) const noexcept { return this->Element_Names; };
     void GetElementAtLine(XML_PARSER::LINE_STRUCT_T* table, int pos);
+    void GetElementAtLine(XML_PARSER::LINE_STRUCT_T* table);
     void ClearStack(void) noexcept { this->m_Stack_Current_Operator.clear(); };
 };
 

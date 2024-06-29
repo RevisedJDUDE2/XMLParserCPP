@@ -12,16 +12,23 @@ int main()
         Outp();
         std::string filename = "sample.xml";
         XML_PARSER parser;
-        XML_PARSER::LINE_STRUCT_T Element_Structure;
         parser.OpenFile(filename);
-        parser.ScanTags(&Element_Structure, 2);
-        //parser.GetElementAtLine(&name, 0);
-        std::cout << "Current Operator: " << parser.GetStackCurrentOperator()[0] << std::endl;
         parser.ClearStack();
-        std::cout << "Element Names Captured: " << parser.GetElementNames()[1] << std::endl;
-        parser.GetElementAtLine(&Element_Structure, 1);
+        XML_PARSER::LINE_STRUCT_T main__xml;
+        parser.ScanTags(&main__xml, 1);
+        parser.GetElementAtLine(&main__xml, 1);
+        std::cout << "First Tag (Not Including the prolog): " << main__xml.OpeningTag << std::endl;
+        parser.ClearStack();
+        XML_PARSER::LINE_STRUCT_T Element_Structure;
+        parser.ScanTags(&Element_Structure, 2);
+        parser.GetElementAtLine(&Element_Structure /*, 2*/);
         std::cout << "name->tagname = \"" << Element_Structure.OpeningTag << "\"\n";
         std::cout << Element_Structure.StrLastPos << std::endl;
+        parser.ClearStack();
+        XML_PARSER::LINE_STRUCT_T AgeElement;
+        parser.ScanTags(&AgeElement, 3);
+        parser.GetElementAtLine(&AgeElement);
+        std::cout << AgeElement.OpeningTag << std::endl;
     } catch (const char* errout)
     {
         std::cout << errout << std::endl;
