@@ -94,36 +94,47 @@ void XML_PARSER::CheckValueAndClosingTag__EXPERIMENTAL(XML_PARSER::LINE_STRUCT_T
 {
     std::string value_buffer;
     std::string closing_tag_buffer;
-    bool is_reading_value = true;
+    bool is_reading_value = false;
     bool is_reading_closing_tag = false;
 
     for (std::size_t i = table->RawStrLastPos; i < this->m_Filecontents[table->LineNumber].size(); ++i)
     {
         char current_char = this->m_Filecontents[table->LineNumber][i];
 
-        if (is_reading_value)
+        if (!is_reading_value)
         {
-            if (current_char == '<')
+            if (current_char == '>') // Start reading value after '>'
             {
-                is_reading_value = false;
-                is_reading_closing_tag = true;
-                continue; // Skip adding '<' to value_buffer
+                is_reading_value = true;
+                continue;
             }
-            if (current_char != ' ' && current_char != '\n' && current_char != '\t') // Ignore whitespaces
+        }
+        else
+        {
+            if (current_char == '<') // Start reading closing tag
+            {
+                is_reading_closing_tag = true;
+                continue;
+            }
+            if (is_reading_closing_tag)
+            {
+                if (current_char == '/') // Skip '/' character in closing tag
+                {
+                    continue;
+                }
+                if (current_char == '>') // End of closing tag found
+                {
+                    table->ClosingTag = closing_tag_buffer;
+                    table->Value = value_buffer;
+                    table->RawStrLastPos = i + 1; // Move past the '>'
+                    return;
+                }
+                closing_tag_buffer.push_back(current_char);
+            }
+            else
             {
                 value_buffer.push_back(current_char);
             }
-        }
-        else if (is_reading_closing_tag)
-        {
-            if (current_char == '>')
-            {
-                table->ClosingTag = closing_tag_buffer;
-                table->Value = value_buffer;
-                table->RawStrLastPos = i;
-                return;
-            }
-            closing_tag_buffer.push_back(current_char);
         }
     }
 }
