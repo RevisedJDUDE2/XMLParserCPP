@@ -4,7 +4,7 @@
 
 void Out(void) noexcept
 {
-    fprintf(stderr, "XML is fun??!\n");
+    fprintf(stderr, "XML is fun\n");
 };
 
 void XML_PARSER::OpenFile(const std::string &Filename)
@@ -20,7 +20,7 @@ void XML_PARSER::OpenFile(const std::string &Filename)
     }
     this->m_Filecontents = Filecontents;
 }
-void XML_PARSER::ScanTags(int Linenumber)
+void XML_PARSER::ScanTags(XML_PARSER::LINE_STRUCT_T* table, int Linenumber)
 {
     bool isOpened;
     std::string ElmntName;
@@ -40,9 +40,16 @@ void XML_PARSER::ScanTags(int Linenumber)
         if(Token != ' ' && isOpened)
         {
             ElmntName.push_back(Token);
+            if(Token == '<' || Token == '>')
+            {
+                ElmntName.pop_back();
+                index -= 1;
+            }
             if(Token == '>') {
                 this->Element_Names.push_back(ElmntName);
-                this->m_Linenumber = Linenumber;
+                //DEP: this->m_Linenumber = Linenumber;
+                table->LineNumber = Linenumber;
+                table->StrLastPos = index;
                 break;
             }
         }
@@ -50,5 +57,5 @@ void XML_PARSER::ScanTags(int Linenumber)
 }
 void XML_PARSER::GetElementAtLine(XML_PARSER::LINE_STRUCT_T* table, int pos)
 {
-    table->OpeningTag = this->Element_Names[pos];
+    table->OpeningTag = this->Element_Names[pos].c_str();
 }

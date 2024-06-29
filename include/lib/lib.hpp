@@ -22,9 +22,10 @@ public:
     typedef struct LINE_STRUCTURE {
         std::string OpeningTag, Value, ClosingTag;
         std::string Attribute, Element;
+        int LineNumber, StrLastPos; //SO, WHERE IN THE FILE AND WHAT IS THE LAST POS OF INDEX
     } LINE_STRUCT_T;
     void OpenFile(const std::string& Filename);
-    void ScanTags(int Linenumber);
+    void ScanTags(XML_PARSER::LINE_STRUCT_T* table, int Linenumber);
     inline std::vector<std::string> GetFileContents(void) const noexcept { return this->m_Filecontents; };
     inline std::vector<char> GetStackCurrentOperator(void) const noexcept { return this->m_Stack_Current_Operator; };
     inline std::vector<std::string> GetElementNames(void) const noexcept { return this->Element_Names; };
