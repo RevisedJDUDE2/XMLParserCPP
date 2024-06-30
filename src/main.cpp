@@ -22,7 +22,9 @@ int main()
         XML_PARSER::LINE_STRUCT_T Element_Structure;
         parser.ScanTags(&Element_Structure, 2);
         parser.GetElementAtLine(&Element_Structure /*, 2*/);
+        parser.CheckValueAndClosingTag__EXPERIMENTAL(&Element_Structure);
         std::cout << "name->tagname = \"" << Element_Structure.OpeningTag << "\"\n";
+        std::cout << Element_Structure.Value << std::endl;
         std::cout << Element_Structure.StrLastPos << std::endl;
         parser.ClearStack();
         XML_PARSER::LINE_STRUCT_T AgeElement;
